@@ -1,5 +1,7 @@
 # Switchword
 
+Play the game at <https://switchword.github.io/>.
+
 In this game, you switch the letters of the initial word with the letters of the final word, one letter at a time, making valid words at each step. Letters can shift position at each step.
 
 Usually, there are many solutions to each puzzle, many paths you can follow. Each puzzle has at least one solution with only frequently used words that also do not include names and abbreviations. You don't have to find this solution, of course. You can use any word that is in the dictionary, it just needs to head towards the final word.

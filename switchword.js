@@ -878,6 +878,14 @@ window.addEventListener('load', function()
 //splash screen
 	el.splash = document.createElement("div");
 	el.splash.className = "splash";
+	el.info = document.createElement("div");
+	el.info.className = "info";
+	el.fork = document.createElement("a");
+	el.fork.className = "external";
+	el.fork.textContent = "Fork me on github";
+	el.fork.href = "https://github.com/switchword/switchword.github.io.git";
+	el.info.appendChild(el.fork);
+	el.splash.appendChild(el.info);
 	el.help = document.createElement("div");
 	el.splash.appendChild(el.help);
 
