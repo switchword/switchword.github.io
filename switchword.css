@@ -1,0 +1,209 @@
+body
+{
+	color: white;
+	background-color: black;
+}
+.board
+{
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+}
+.before
+{
+	justify-content: right;
+}
+.noneditable.after
+{
+	background-image: linear-gradient(to left, black, 95%, rgba(128,128,128,0.8));
+}
+.noneditable.before
+{
+	background-image: linear-gradient(to right, black, 95%, rgba(128,128,128,0.8));
+}
+.current.after
+{
+	background-image: linear-gradient(to left, black, 95%, rgba(255,255,0,0.8));
+}
+.current.before
+{
+	background-image: linear-gradient(to right, black, 95%, rgba(255,255,0,0.8));
+}
+.noneditable.word
+{
+	background-image: linear-gradient(to left, rgba(128,128,128,0.8), grey 10%, grey 90%, rgba(128,128,128,0.8));
+}
+.current.word
+{
+	background-image: linear-gradient(to left, rgba(255,255,0,0.8), yellow 10%, yellow 90%, rgba(255,255,0,0.8));
+	color:black;
+}
+.current.lang
+{
+	background-color: yellowgreen;
+	color:black;
+}
+.splash
+{
+	text-align: center;
+	font-size: 1.5em;
+}
+.header,
+.before,
+.after,
+.word
+{
+	font-size: 2.8em;
+	height: 1.6em;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	margin-top: 2px;
+}
+.header,
+.word
+{
+	justify-content: center;
+}
+.button,
+.letter
+{
+	color: white;
+	display: inline-block;
+	border-radius: 0.2em;
+	min-width: 1em;
+	padding: 0.05em;
+	margin: 0.05em;
+	transition: transform 2s ease-in-out;
+}
+.lang
+{
+	text-align: center;
+	font-size:2em;
+}
+.external.hidden,
+.before.hidden,
+.after.hidden,
+.button.hidden,
+.word.hidden,
+.letter.hidden
+{
+	display: none;
+}
+.noneditable .letter,
+.current .letter {
+	color: black;
+}
+.button
+{
+	border: solid;
+	border-radius: 0.1em;
+	background-color:black;
+}
+.easy.reallyeasy
+{
+	color:red;
+}
+.esc,
+.about,
+.easy,
+.gamelen
+{
+	font-size: 0.7em;
+	margin: 0.4em;
+	padding: 0.1em;
+	min-width: 1.1em;
+}
+.clearline,
+.backspace
+{
+	color: black;
+	background-color: orange;
+	font-size: 0.9em;
+	align-self: center;
+}
+.available
+{
+	border: solid;
+	background-color: skyblue;
+}
+.introduce
+{
+	border: solid;
+	background-color: lightgreen;
+}
+.required
+{
+	border: solid;
+	background-color: cyan;
+}
+.error
+{
+	white-space: pre;
+	color: black;
+	background-color:orange;
+	font-size: 1.5em;
+	text-align: center;
+	margin-top: 2px;
+	padding 0.05em;
+}
+.letter.win
+{
+	transform: rotate(720deg);
+}
+.external
+{
+	font-size: 0.4em;
+	color: hotpink;
+	margin-right: 3em;
+	border-radius: 0.2em;
+	padding: 0.2em;
+}
+@media(hover: hover)
+{
+.lang:hover,
+.current.lang:hover
+{
+	background-color: yellow;
+	color:black;
+}
+.easy.reallyeasy:hover
+{
+	color:red;
+}
+.about:hover,
+.easy:hover,
+.esc:hover,
+.gamelen:hover
+{
+	background-color:white;
+	color:black;
+}
+.clearline:focus,
+.backspace:focus,
+.clearline:hover,
+.backspace:hover
+{
+	background-color: red;
+}
+.available:focus,
+.available:hover
+{
+	background-color: steelblue;
+}
+.introduce:focus,
+.introduce:hover
+{
+	background-color: green;
+}
+.required:focus,
+.required:hover
+{
+	background-color: darkcyan;
+}
+.external:focus,
+.external:hover
+{
+	color: black;
+	background-color: hotpink;
+}
+}
