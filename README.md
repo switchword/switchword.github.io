@@ -18,3 +18,5 @@ The validation of the words is done with word lists from:
 * <https://github.com/LibreOffice/dictionaries>
 
 The frequency data come from <https://github.com/hermitdave/FrequencyWords>.
+
+SVG icons from <https://www.svgrepo.com/>.

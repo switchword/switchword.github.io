@@ -3,6 +3,12 @@ body
 	color: white;
 	background-color: black;
 }
+svg
+{
+	width: 1em;
+	height: 1em;
+	fill: currentColor;
+}
 .board
 {
 	display: grid;
@@ -49,7 +55,8 @@ body
 }
 .info
 {
-	text-align: right;
+	display: flex;
+	justify-content: end;
 }
 .header,
 .before,
@@ -72,7 +79,8 @@ body
 .letter
 {
 	color: white;
-	display: inline-block;
+	display: flex;
+	justify-content: center;
 	border-radius: 0.2em;
 	min-width: 1em;
 	padding: 0.05em;
@@ -84,6 +92,12 @@ body
 	text-align: center;
 	font-size:2em;
 }
+.links
+{
+	margin-right: 3em;
+	display: flex;
+}
+.links.hidden,
 .external.hidden,
 .before.hidden,
 .after.hidden,
@@ -116,6 +130,11 @@ body
 	margin: 0.4em;
 	padding: 0.1em;
 	min-width: 1.1em;
+}
+.esc
+{
+	padding: 0.2em;
+	font-size: 0.6em;
 }
 .clearline,
 .backspace
@@ -156,9 +175,9 @@ body
 }
 .external
 {
-	font-size: 0.4em;
+	display: flex;
+	font-size: 0.8em;
 	color: hotpink;
-	margin-right: 3em;
 	border-radius: 0.2em;
 	padding: 0.2em;
 }

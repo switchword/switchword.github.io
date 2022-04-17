@@ -49,7 +49,7 @@ function backspacePressed(repeatEvent, el, m, words, maxWordLen)
 		m.curLine--;
 		updateCurrent(el, words, m, maxWordLen);
 		eraseOneLetter(el, words, m, m.wordLen, m.curLine);
-		el.a[m.curLine].classList.add("hidden");
+		el.links[m.curLine].classList.add("hidden");
 		if (document.activeElement !== undefined && document.activeElement !== null)
 			document.activeElement.blur();
 	}
@@ -110,7 +110,7 @@ function letterPressed(letter, m, words, el, maxWordLen, lm, byteArray, dictStar
 		{
 			m.addedLetters.push(words[m.curLine].filter(bagDiff(words[m.curLine - 1].slice()))[0]);
 			m.removedLetters.push(words[m.curLine - 1].filter(bagDiff(words[m.curLine].slice()))[0]);
-			setLink(m.curLine, words[m.curLine], el, lm[m.lang].link, lm[m.lang].linktext);
+			setLinks(m.curLine, words[m.curLine], el, lm[m.lang].links);
 			m.curLine++;
 			updateCurrent(el, words, m, maxWordLen);
 			if (m.curLine === m.wordLen)
@@ -324,12 +324,14 @@ function changeMode(m, el, newMode)
 	m.mode = newMode;
 }
 
-function setLink(line, word, el, link, linktext)
+function setLinks(line, word, el, links)
 {
-	const sl = link.split("%s");
-	el.a[line].href = sl[0] + word.join('') + sl[1];
-	el.a[line].textContent = linktext;
-	el.a[line].classList.remove("hidden");
+	for (let i = 0; i < links.length; i++)
+	{
+		const sl = links[i].split("%s");
+		el.a[line][i].href = sl[0] + word.join('') + sl[1];
+	}
+	el.links[line].classList.remove("hidden");
 }
 
 function newGame(el, m, words, maxWordLen, lm, byteArray, dictStartPos, dictLen, freqs)
@@ -361,8 +363,8 @@ function newGame(el, m, words, maxWordLen, lm, byteArray, dictStartPos, dictLen,
 	const characterCodesFromWordIndex = (wi) => byteArray.subarray(dictStartPos + wi * m.wordLen, dictStartPos + (wi + 1) * m.wordLen);
 	words[0] = Array.from(characterCodesFromWordIndex(wiFrom)).map(v => alphabet[v]);
 	words[m.wordLen] = Array.from(characterCodesFromWordIndex(alTo[random(alTo.length)])).map(v => alphabet[v]);
-	setLink(0, words[0], el, lm[m.lang].link, lm[m.lang].linktext);
-	setLink(m.wordLen, words[m.wordLen], el, lm[m.lang].link, lm[m.lang].linktext);
+	setLinks(0, words[0], el, lm[m.lang].links);
+	setLinks(m.wordLen, words[m.wordLen], el, lm[m.lang].links);
 
 	for (let i = 1; i < m.wordLen; i++)
 		words[i] = [];
@@ -434,7 +436,7 @@ function newGame(el, m, words, maxWordLen, lm, byteArray, dictStartPos, dictLen,
 			el.letters[wi][li].classList.remove("introduce", "required", "available", "hidden");
 			el.words[wi].appendChild(el.letters[wi][li]);
 		}
-		el.a[wi].classList.add("hidden");
+		el.links[wi].classList.add("hidden");
 	}
 	for (let wi = 0; wi <= m.wordLen; wi += m.wordLen)
 	{
@@ -443,7 +445,7 @@ function newGame(el, m, words, maxWordLen, lm, byteArray, dictStartPos, dictLen,
 		el.afterWords[wi].classList.add("noneditable");
 		for (let li = 0; li < m.wordLen; li++)
 			el.letters[wi][li].textContent = words[wi][li];
-		el.a[wi].classList.remove("hidden");
+		el.links[wi].classList.remove("hidden");
 	}
 	el.error.textContent = '';
 	updateCurrent(el, words, m, maxWordLen );
@@ -759,20 +761,29 @@ window.addEventListener('load', function()
 	lm["en_US"] = {
 		"description":"american english",
 		"alphabet":"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		"link": "https://www.merriam-webster.com/dictionary/%s",
-		"linktext": "merriam-webster.com",
+		"links": [
+			"https://www.merriam-webster.com/dictionary/%s",
+			"https://en.wiktionary.org/w/index.php?search=%s&fulltext=1",
+			"https://duckduckgo.com/?q=%s",
+		],
 	};
 	lm["en_GB"] = {
 		"description":"british english",
 		"alphabet":"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		"link": "https://www.oxfordlearnersdictionaries.com/definition/english/%s",
-		"linktext": "oxfordlearnersdictionaries.com",
+		"links": [
+			"https://www.oxfordlearnersdictionaries.com/definition/english/%s",
+			"https://en.wiktionary.org/w/index.php?search=%s&fulltext=1",
+			"https://duckduckgo.com/?q=%s",
+		],
 	};
 	lm["el"]    = {
 		"description":"ελληνικά",
 		"alphabet":"ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ",
-		"link": "https://www.greek-language.gr/greekLang/modern_greek/tools/lexica/triantafyllides/search.html?lq=%s&loptall=true&dq=",
-		"linktext": "greek-language.gr",
+		"links": [
+			"https://www.greek-language.gr/greekLang/modern_greek/tools/lexica/triantafyllides/search.html?lq=%s&loptall=true&dq=",
+			"https://el.wiktionary.org/w/index.php?search=%s&fulltext=1",
+			"https://duckduckgo.com/?q=%s",
+		],
 	};
 	tr["en_US"] = {
 		"notword": "This is NOT a word",
@@ -896,7 +907,7 @@ window.addEventListener('load', function()
 //esc
 	el.esc = document.createElement("button");
 	el.esc.className = "button esc";
-	el.esc.textContent = "Esc";
+	el.esc.innerHTML = '<svg class="icon"><use xlink:href="#gears" /></svg> Esc';
 	el.esc.addEventListener("click", function()
 	{
 		changeMode(m, el, m.LANG);
@@ -943,6 +954,7 @@ window.addEventListener('load', function()
 	el.afterWords = [];
 	el.letters = [];
 	el.a = [];
+	el.links = [];
 	function handleLetterClick(ev)
 	{
 		if (m.curLine === m.wordLen)
@@ -976,10 +988,25 @@ window.addEventListener('load', function()
 			});
 		}
 //links
-		el.a.push(document.createElement("a"));
-		el.a[wi].classList.add("external");
-		el.a[wi].target = "_blank";
-		el.beforeWords[wi].appendChild(el.a[wi]);
+		el.links.push(document.createElement("div"));
+		el.links[wi].classList.add("links");
+		el.a[wi]=[];
+		el.a[wi].push(document.createElement("a"));
+		el.a[wi][0].classList.add("external");
+		el.a[wi][0].target = "_blank";
+		el.a[wi][0].innerHTML = '<svg class="icon"><use xlink:href="#dict" /></svg>';
+		el.a[wi].push(document.createElement("a"));
+		el.a[wi][1].classList.add("external");
+		el.a[wi][1].target = "_blank";
+		el.a[wi][1].innerHTML = '<svg class="icon"><use xlink:href="#wict" /></svg>';
+		el.a[wi].push(document.createElement("a"));
+		el.a[wi][2].classList.add("external");
+		el.a[wi][2].target = "_blank";
+		el.a[wi][2].innerHTML = '<svg class="icon"><use xlink:href="#websearch" /></svg>';
+		el.links[wi].appendChild(el.a[wi][0]);
+		el.links[wi].appendChild(el.a[wi][1]);
+		el.links[wi].appendChild(el.a[wi][2]);
+		el.beforeWords[wi].appendChild(el.links[wi]);
 	}
 //erasers
 	el.backspace = document.createElement("span");
