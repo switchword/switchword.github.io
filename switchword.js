@@ -957,6 +957,8 @@ window.addEventListener('load', function()
 	el.links = [];
 	function handleLetterClick(ev)
 	{
+		if (document.activeElement !== undefined && document.activeElement !== null)
+			document.activeElement.blur();
 		if (m.curLine === m.wordLen)
 			newGame(el, m, words, maxWordLen, lm, byteArray, dm.dictStartPos[m.wordLen], dm.dictLen[m.wordLen], dm.freqSet[m.wordLen]);
 		else
