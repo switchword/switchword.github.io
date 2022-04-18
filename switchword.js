@@ -757,7 +757,7 @@ window.addEventListener('load', function()
 	const dm = {};
 	const lm = {};
 	const tr = {};
-	m.languages = ["en_US", "en_GB", "el"];
+	m.languages = ["en_US", "en_GB", "el", "es", "es_ES"];
 	lm["en_US"] = {
 		"description":"american english",
 		"alphabet":"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -785,6 +785,24 @@ window.addEventListener('load', function()
 			"https://duckduckgo.com/?q=%s",
 		],
 	};
+	lm["es"] = {
+		"description": "español americano",
+		"alphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZÑ",
+		"links": [
+			"https://dle.rae.es/%s?m=form",
+			"https://es.wiktionary.org/w/index.php?search=%s&fulltext=1",
+			"https://duckduckgo.com/?q=%s",
+		],
+	};
+	lm["es_ES"] = {
+		"description": "español europeo",
+		"alphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZÑ",
+		"links": [
+			"https://dle.rae.es/%s?m=form",
+			"https://es.wiktionary.org/w/index.php?search=%s&fulltext=1",
+			"https://duckduckgo.com/?q=%s",
+		],
+	};
 	tr["en_US"] = {
 		"notword": "This is NOT a word",
 		"deadend": "This is a word,\nbut a known DEAD-END",
@@ -806,6 +824,27 @@ window.addEventListener('load', function()
 		],
 	};
 	tr["en_GB"] = tr["en_US"];
+	tr["es"] = {
+		"notword": "NO existe esa palabra",
+		"deadend": "Esta palabra existe,\npero es un callejón sin salida",
+		"anagram": "Esta no es una palabra\nPero, hay una palabra que es un anagrama de estas letras",
+		"notanag": "Esta no es una palabra\nY no hay ninguna palabra que sea un anagrama de estas letras",
+		"loading": "El diccionario se está descargando\nEspere, por favor",
+		"preping": "El diccionario se está preparando\nEspere, por favor",
+		"help": [
+			"Cambia las letras de la primera palabra por las de la última.",
+			"Crea una nueva palabra cambiando una letra, cada vez.",
+			"Cada palabra debe estar en el diccionario.",
+			"Las letras pueden cambiar de posición.",
+			"Por lo general, no hay una sola solución.",
+			"Siempre hay una solución con sólo palabras de uso frecuente.",
+			"La primera y la última palabra no siguen la regla anterior.",
+			"Las palabras de uso frecuente no contienen nombres ni abreviaturas.",
+			"Pulse ! para alternar la dificultad.",
+			"En modo fácil(rojo), una entrada incorrecta te da una pista.",
+		],
+	}
+	tr["es_ES"] = tr["es"];
 	tr["el"] = {
 		"notword": "ΔΕΝ υπάρχει τέτοια λέξη",
 		"deadend": "Αυτή η λέξη υπάρχει,\nαλλά οδηγεί σε ΑΔΙΕΞΟΔΟ",
